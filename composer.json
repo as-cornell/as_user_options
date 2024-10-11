@@ -1,11 +1,17 @@
 {
     "name": "as-cornell/as_user_options",
     "description": "Provides fine-grained control over links in user toolbar.",
-    "autoload": {
-        "psr-4": {
-            "ASCornell\\ASUserOptions\\": "src/"
+    "type": "drupal-custom-module",
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://it.cornell.edu/custom-web",
+    "authors": [
+        {
+            "name": "Mark Wilson",
+            "email": "mew72@cornell.edu",
+            "role": "Author"
         }
-    },
+    ],
+    "support": {},
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "require": {}
 }
