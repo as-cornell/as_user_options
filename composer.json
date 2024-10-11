@@ -1,6 +1,6 @@
 {
     "name": "as-cornell/as_user_options",
-    "description": "A hello world composer private package.",
+    "description": "Provides fine-grained control over links in user toolbar.",
     "autoload": {
         "psr-4": {
             "ASCornell\\ASUserOptions\\": "src/"
