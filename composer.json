@@ -1,0 +1,11 @@
+{
+    "name": "as-cornell/as_user_options",
+    "description": "A hello world composer private package.",
+    "autoload": {
+        "psr-4": {
+            "ASCornell\\ASUserOptions\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
