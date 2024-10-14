@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-Provides fine-grained control over links in user toolbar.
+Provides fine-grained control over links in user toolbar and other user-related configurations.
 
 ## MAINTAINERS
 
