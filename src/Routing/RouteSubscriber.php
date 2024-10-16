@@ -1,3 +1,4 @@
+<?php
 namespace Drupal\as_user_options\Routing;
 
 use Drupal\Core\Routing\RouteSubscriberBase;

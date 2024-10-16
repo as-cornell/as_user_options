@@ -39,7 +39,7 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-
+    $config = $this->config(static::SETTINGS);
     // switch to db based config
     $form['hideviewprofile'] = array(
       '#type' => 'checkbox',

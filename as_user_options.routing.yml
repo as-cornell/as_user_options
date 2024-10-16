@@ -1,4 +1,4 @@
-as_people_ldap.settings:
+as_user_options.settings:
   path: 'admin/config/people/as-user-options-settings'
   defaults:
    _form: '\Drupal\as_user_options\Form\AsUserOptionsSettingsForm'
