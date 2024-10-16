@@ -1,0 +1,6 @@
+as_user_options.settings:
+ title: 'A&S User Options Settings'
+ description: 'Settings for User Options'
+ parent: system.admin_config_people
+ route_name: as_user_options.settings
+ weight: 100
