@@ -1,4 +1,5 @@
-### AS User Options
+[![Latest Stable Version](https://poser.pugx.org/as-cornell/as_user_options/v)](https://packagist.org/packages/as-cornell/as_user_options)
+# AS USER OPTIONS (as_user_options)
 
 ## INTRODUCTION
 
