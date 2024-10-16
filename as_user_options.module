@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Module file to alter behaviour.
+ */
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function as_user_options_menu_local_tasks_alter(&$data, $route_name) {
+  $config_factory = \Drupal::service('config.factory');
+  $hide_label = $config_factory->get('as_user_options.settings')->get('removetabs');
+  $hide_view = $config_factory->get('as_user_options.settings')->get('hideviewprofile');
+  $hide_edit = $config_factory->get('as_user_options.settings')->get('hideeditprofile');
+
+  if ($route_name == 'user.login'  && isset($data['tabs'][0])) {
+    if ($hide_label) {
+      // Remove all tabs from user login form.
+      foreach ($data['tabs'][0] as $key => $tab) {
+        $data['tabs'][0][$key]['#access'] = FALSE;
+      }
+    }
+    elseif ($hide_view) {
+      $data['tabs'][0]['user.page']['#access'] = FALSE;
+    }
+    elseif ($hide_edit) {
+      $data['tabs'][0]['entity.user.edit_form']['#access'] = FALSE;
+    }
+  }
+}

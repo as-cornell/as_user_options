@@ -14,11 +14,11 @@ class RouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection) {
    if ($route = $collection->get('entity.user.edit_form')) {
-      $route->setRequirement('_permission', 'administer users');
+      $route->setRequirement('_access', 'FALSE');
     }
 
-    if ($route = $collection->get('entity.user.canonical')) {
-      $route->setRequirement('_permission', 'administer users');
+    if ($route = $collection->get('user.page')) {
+      $route->setRequirement('_access', 'FALSE');
     }
   }
 

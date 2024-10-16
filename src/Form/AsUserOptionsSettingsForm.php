@@ -41,15 +41,20 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
 
     $config = $this->config(static::SETTINGS);
     // switch to db based config
+    $form['removetabs'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Remove user tab for anonymous'),
+      '#default_value' => $config->get('removetabs') ?? FALSE,
+    );
     $form['hideviewprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide View Profile'),
-      '#default_value' => $config->get('hideviewprofile')
+      '#title' => $this->t('Hide view profile'),
+      '#default_value' => $config->get('hideviewprofile') ?? FALSE,
     );
     $form['hideeditprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide Edit Profile'),
-      '#default_value' => $config->get('hideeditprofile')
+      '#title' => $this->t('Hide edit profile'),
+      '#default_value' => $config->get('hideeditprofile') ?? FALSE,
     );
     return parent::buildForm($form,$form_state);
   }
@@ -65,6 +70,7 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
 
     // switch to db based config
     $this->configFactory->getEditable(static::SETTINGS)
+      ->set('removetabs', $form_state->getValue('removetabs'))
       ->set('hideviewprofile', $form_state->getValue('hideviewprofile'))
       ->set('hideeditprofile', $form_state->getValue('hideeditprofile'))
       ->save();
