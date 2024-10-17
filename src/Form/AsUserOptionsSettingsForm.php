@@ -41,19 +41,24 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
 
     $config = $this->config(static::SETTINGS);
     // switch to db based config
-    $form['removetabs'] = array(
+    $form['hideusertabs'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Remove user tab for anonymous'),
-      '#default_value' => $config->get('removetabs') ?? FALSE,
+      '#title' => $this->t('Remove user tab for all roles'),
+      '#default_value' => $config->get('hideusertabs') ?? FALSE,
+    );
+    $form['hideshortcuts'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide shortcuts for all roles'),
+      '#default_value' => $config->get('hideshortcuts') ?? FALSE,
     );
     $form['hideviewprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide view profile'),
+      '#title' => $this->t('Hide view profile for all roles'),
       '#default_value' => $config->get('hideviewprofile') ?? FALSE,
     );
     $form['hideeditprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide edit profile'),
+      '#title' => $this->t('Hide edit profile for all roles'),
       '#default_value' => $config->get('hideeditprofile') ?? FALSE,
     );
     return parent::buildForm($form,$form_state);
@@ -70,7 +75,8 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
 
     // switch to db based config
     $this->configFactory->getEditable(static::SETTINGS)
-      ->set('removetabs', $form_state->getValue('removetabs'))
+      ->set('hideusertabs', $form_state->getValue('hideusertabs'))
+      ->set('hideshortcuts', $form_state->getValue('hideshortcuts'))
       ->set('hideviewprofile', $form_state->getValue('hideviewprofile'))
       ->set('hideeditprofile', $form_state->getValue('hideeditprofile'))
       ->save();
