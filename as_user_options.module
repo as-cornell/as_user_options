@@ -14,7 +14,7 @@ function as_user_options_menu_local_tasks_alter(&$data, $route_name) {
   $hide_tabs = $config_factory->get('as_user_options.settings')->get('hideusertabs');
 
     if ($route_name == 'user.login'  && isset($data['tabs'][0])) {
-        if ($hide_label) {
+        if ($hide_tabs) {
           // Remove all tabs from user login form.
           foreach ($data['tabs'][0] as $key => $tab) {
             $data['tabs'][0][$key]['#access'] = FALSE;
