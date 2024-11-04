@@ -15,10 +15,12 @@ class RouteSubscriber extends RouteSubscriberBase {
   protected function alterRoutes(RouteCollection $collection) {
     // remove access to edit profile and/or view profile for contributor
     $user = \Drupal::currentUser();
+    //$roles = explode(',','editor,content_editor,contributor,occasional_contributor');
     $config_factory = \Drupal::service('config.factory');
     $hide_view = $config_factory->get('as_user_options.settings')->get('hideviewprofile');
     $hide_edit = $config_factory->get('as_user_options.settings')->get('hideeditprofile');
-    if (in_array('contributor', $user->getRoles())) {
+    if (array_intersect($roles, $user->getRoles())) {
+    //if (in_array('contributor', $user->getRoles())) {
       if ($route = $collection->get('user.page') && $hide_view) {
         $route->setRequirement('_access', 'FALSE');
       }

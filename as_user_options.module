@@ -47,7 +47,7 @@ function as_user_options_toolbar_alter(&$items) {
  * Implements hook_preprocess_HOOK().
  */
 function as_user_options_preprocess_links__toolbar_user(&$variables) {
-  // Remove the 'View profile' and ,Edit profile' menu items.
+  // Remove the 'View profile' and 'Edit profile' menu items.
     //$result = json_decode(json_encode($variables));
     //var_dump($result);
     $config_factory = \Drupal::service('config.factory');
