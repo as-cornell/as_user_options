@@ -30,14 +30,23 @@ function as_user_options_menu_local_tasks_alter(&$data, $route_name) {
  */
 
 function as_user_options_toolbar_alter(&$items) {
-    // hides shortcuts
+    
+    $current_user = \Drupal::currentUser();
+    $roles = $current_user->getRoles();
     //$result = json_decode(json_encode($items['user']['tab']));
-    //var_dump($result);
+    //var_dump($roles);
     $config_factory = \Drupal::service('config.factory');
     $hide_shortcuts = $config_factory->get('as_user_options.settings')->get('hideshortcuts');
+    $hide_manage = $config_factory->get('as_user_options.settings')->get('hidemanage');
+    // hide shortcuts
     if ($hide_shortcuts) {
-        $items['shortcuts']['#wrapper_attributes']['class'] = 'visually-hidden';
+      $items['shortcuts']['#wrapper_attributes']['class'] = 'visually-hidden';
     }
+    // hides manage for users with only faculty
+    if (in_array('faculty', $roles) && !in_array('editor', $roles) && $hide_manage) {
+      $items['administration']['#wrapper_attributes']['class'] = 'visually-hidden';
+    }
+     
     // rename a thing
     //$items['user']['tab']['#title'] = "Manage User";
 }
@@ -58,5 +67,6 @@ function as_user_options_preprocess_links__toolbar_user(&$variables) {
     }
     if ($hide_edit) {
         unset($variables['links']['account_edit']);
+        unset($variables['links']['admin']);
     }
 }

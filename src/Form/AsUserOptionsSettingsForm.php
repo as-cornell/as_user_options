@@ -46,6 +46,11 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Remove user tab for all roles'),
       '#default_value' => $config->get('hideusertabs') ?? FALSE,
     );
+    $form['hidemanage'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide manage content for faculty'),
+      '#default_value' => $config->get('hidemanage') ?? FALSE,
+    );
     $form['hideshortcuts'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Hide shortcuts for all roles'),
@@ -76,6 +81,7 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
     // switch to db based config
     $this->configFactory->getEditable(static::SETTINGS)
       ->set('hideusertabs', $form_state->getValue('hideusertabs'))
+      ->set('hidemanage', $form_state->getValue('hidemanage'))
       ->set('hideshortcuts', $form_state->getValue('hideshortcuts'))
       ->set('hideviewprofile', $form_state->getValue('hideviewprofile'))
       ->set('hideeditprofile', $form_state->getValue('hideeditprofile'))
