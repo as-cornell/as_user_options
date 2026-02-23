@@ -8,6 +8,7 @@ Provides fine-grained control over links in user toolbar and other user-related 
 - remove access to edit profile and view profile for specific roles
 - Hide user tab for all roles, if checked
 - Hide 'Shortcuts' for all roles, if checked
+- Hide 'Manage' for users who are faculty, student, or staff who are not also editor or contributor
 - Hide 'View profile' for all roles, if checked
 - Hide 'Edit profile' for all roles, if checked
 

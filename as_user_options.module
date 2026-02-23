@@ -41,7 +41,7 @@ function as_user_options_toolbar_alter(&$items) {
     if ($hide_shortcuts) {
       $items['shortcuts']['#wrapper_attributes']['class'] = 'visually-hidden';
     }
-    // hides manage for users who are faculty, student, or staff who are not editors or contributors
+    // hides manage for users who are faculty, student, or staff who are not also editor or contributor
     if ($hide_manage && in_array('faculty', $roles) || in_array('student', $roles) || in_array('staff', $roles)) {
       if (!in_array('editor', $roles) && !in_array('contributor', $roles)) {
         $items['administration']['#wrapper_attributes']['class'] = 'visually-hidden';

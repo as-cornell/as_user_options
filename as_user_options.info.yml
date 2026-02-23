@@ -1,5 +1,5 @@
 name: A&S User Options
-description: "Provides fine-grained control over links in user toolbar and other user-related configurations."
+description: "Provides fine-grained control over links in the user toolbar and login form."
 package: AS
 type: module
 core_version_requirement: ^9.5 || ^10 || ^11
