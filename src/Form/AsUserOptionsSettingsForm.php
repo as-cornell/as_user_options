@@ -43,27 +43,27 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
     // switch to db based config
     $form['hideusertabs'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Remove user tab for all roles'),
+      '#title' => $this->t('Remove USER tab for all roles'),
       '#default_value' => $config->get('hideusertabs') ?? FALSE,
     );
     $form['hidemanage'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide manage content for faculty'),
+      '#title' => $this->t('Hide MANAGE for users who are faculty, student, or staff who are not editors or contributors'),
       '#default_value' => $config->get('hidemanage') ?? FALSE,
     );
     $form['hideshortcuts'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide shortcuts for all roles'),
+      '#title' => $this->t('Hide SHORTCUTS for all roles'),
       '#default_value' => $config->get('hideshortcuts') ?? FALSE,
     );
     $form['hideviewprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide view profile for all roles'),
+      '#title' => $this->t('Hide VIEW PROFILE for all roles'),
       '#default_value' => $config->get('hideviewprofile') ?? FALSE,
     );
     $form['hideeditprofile'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Hide edit profile for all roles'),
+      '#title' => $this->t('Hide EDIT PROFILE for all roles'),
       '#default_value' => $config->get('hideeditprofile') ?? FALSE,
     );
     return parent::buildForm($form,$form_state);
