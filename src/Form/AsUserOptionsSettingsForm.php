@@ -1,10 +1,16 @@
 <?php
+
 namespace Drupal\as_user_options\Form;
+
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\MapArray;
 
-
+/**
+ * Provides a settings form for A&S User Options module.
+ *
+ * Allows administrators to configure which toolbar links and user menu items
+ * should be hidden based on user roles.
+ */
 class AsUserOptionsSettingsForm extends ConfigFormBase {
 
 
@@ -34,51 +40,46 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-
-
-
   public function buildForm(array $form, FormStateInterface $form_state) {
-
     $config = $this->config(static::SETTINGS);
-    // switch to db based config
-    $form['hideusertabs'] = array(
+
+    $form['hideusertabs'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Remove USER tab for all roles'),
       '#default_value' => $config->get('hideusertabs') ?? FALSE,
-    );
-    $form['hidemanage'] = array(
+    ];
+
+    $form['hidemanage'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide MANAGE for users who are faculty, student, or staff who are not editors or contributors'),
       '#default_value' => $config->get('hidemanage') ?? FALSE,
-    );
-    $form['hideshortcuts'] = array(
+    ];
+
+    $form['hideshortcuts'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide SHORTCUTS for all roles'),
       '#default_value' => $config->get('hideshortcuts') ?? FALSE,
-    );
-    $form['hideviewprofile'] = array(
+    ];
+
+    $form['hideviewprofile'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide VIEW PROFILE for all roles'),
       '#default_value' => $config->get('hideviewprofile') ?? FALSE,
-    );
-    $form['hideeditprofile'] = array(
+    ];
+
+    $form['hideeditprofile'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide EDIT PROFILE for all roles'),
       '#default_value' => $config->get('hideeditprofile') ?? FALSE,
-    );
-    return parent::buildForm($form,$form_state);
+    ];
+
+    return parent::buildForm($form, $form_state);
   }
 
   /**
-   * Form submission handler.
-   *
-   *  $form -> An associative array containing the structure of the form.
-   *  $form_state -> An associative array containing the current state of the form.
+   * {@inheritdoc}
    */
-
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
-    // switch to db based config
     $this->configFactory->getEditable(static::SETTINGS)
       ->set('hideusertabs', $form_state->getValue('hideusertabs'))
       ->set('hidemanage', $form_state->getValue('hidemanage'))
@@ -86,5 +87,7 @@ class AsUserOptionsSettingsForm extends ConfigFormBase {
       ->set('hideviewprofile', $form_state->getValue('hideviewprofile'))
       ->set('hideeditprofile', $form_state->getValue('hideeditprofile'))
       ->save();
+
+    parent::submitForm($form, $form_state);
   }
 }

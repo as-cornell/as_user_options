@@ -9,46 +9,44 @@
  * Implements hook_menu_local_tasks_alter().
  */
 function as_user_options_menu_local_tasks_alter(&$data, $route_name) {
-  // hides user tab
   $config_factory = \Drupal::service('config.factory');
   $hide_tabs = $config_factory->get('as_user_options.settings')->get('hideusertabs');
 
-    if ($route_name == 'user.login'  && isset($data['tabs'][0])) {
-        if ($hide_tabs) {
-          // Remove all tabs from user login form.
-          foreach ($data['tabs'][0] as $key => $tab) {
-            $data['tabs'][0][$key]['#access'] = FALSE;
-          }
-        }
+  // Hide user tabs on login form.
+  if ($route_name == 'user.login' && isset($data['tabs'][0])) {
+    if ($hide_tabs) {
+      // Remove all tabs from user login form.
+      foreach ($data['tabs'][0] as $key => $tab) {
+        $data['tabs'][0][$key]['#access'] = FALSE;
+      }
     }
-
+  }
 }
 
 
 /**
  * Implements hook_toolbar_alter().
  */
-
 function as_user_options_toolbar_alter(&$items) {
-    // get roles for durrent user
-    $current_user = \Drupal::currentUser();
-    $roles = $current_user->getRoles();
-    //var_dump($roles);
-    $config_factory = \Drupal::service('config.factory');
-    $hide_shortcuts = $config_factory->get('as_user_options.settings')->get('hideshortcuts');
-    $hide_manage = $config_factory->get('as_user_options.settings')->get('hidemanage');
-    // hide shortcuts
-    if ($hide_shortcuts) {
-      $items['shortcuts']['#wrapper_attributes']['class'] = 'visually-hidden';
+  // Get roles for current user.
+  $current_user = \Drupal::currentUser();
+  $roles = $current_user->getRoles();
+
+  $config_factory = \Drupal::service('config.factory');
+  $hide_shortcuts = $config_factory->get('as_user_options.settings')->get('hideshortcuts');
+  $hide_manage = $config_factory->get('as_user_options.settings')->get('hidemanage');
+
+  // Hide shortcuts.
+  if ($hide_shortcuts) {
+    $items['shortcuts']['#access'] = FALSE;
+  }
+
+  // Hide manage for users who are faculty, student, or staff who are not also editor or contributor.
+  if ($hide_manage && (in_array('faculty', $roles) || in_array('student', $roles) || in_array('staff', $roles))) {
+    if (!in_array('editor', $roles) && !in_array('contributor', $roles)) {
+      $items['administration']['#access'] = FALSE;
     }
-    // hides manage for users who are faculty, student, or staff who are not also editor or contributor
-    if ($hide_manage && in_array('faculty', $roles) || in_array('student', $roles) || in_array('staff', $roles)) {
-      if (!in_array('editor', $roles) && !in_array('contributor', $roles)) {
-        $items['administration']['#wrapper_attributes']['class'] = 'visually-hidden';
-      }
-    }
-    // rename an item
-    //$items['user']['tab']['#title'] = "Manage User";
+  }
 }
 
 
@@ -56,17 +54,18 @@ function as_user_options_toolbar_alter(&$items) {
  * Implements hook_preprocess_HOOK().
  */
 function as_user_options_preprocess_links__toolbar_user(&$variables) {
-  // Remove the 'View profile' and 'Edit profile' menu items.
-    //$result = json_decode(json_encode($variables));
-    //var_dump($result);
-    $config_factory = \Drupal::service('config.factory');
-    $hide_view = $config_factory->get('as_user_options.settings')->get('hideviewprofile');
-    $hide_edit = $config_factory->get('as_user_options.settings')->get('hideeditprofile');
-    if ($hide_view) {
-        unset($variables['links']['account']);
-    }
-    if ($hide_edit) {
-        unset($variables['links']['account_edit']);
-        unset($variables['links']['admin']);
-    }
+  $config_factory = \Drupal::service('config.factory');
+  $hide_view = $config_factory->get('as_user_options.settings')->get('hideviewprofile');
+  $hide_edit = $config_factory->get('as_user_options.settings')->get('hideeditprofile');
+
+  // Remove 'View profile' menu item.
+  if ($hide_view) {
+    unset($variables['links']['account']);
+  }
+
+  // Remove 'Edit profile' and admin menu items.
+  if ($hide_edit) {
+    unset($variables['links']['account_edit']);
+    unset($variables['links']['admin']);
+  }
 }
