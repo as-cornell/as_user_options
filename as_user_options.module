@@ -37,14 +37,16 @@ function as_user_options_toolbar_alter(&$items) {
   $hide_manage = $config_factory->get('as_user_options.settings')->get('hidemanage');
 
   // Hide shortcuts.
-  if ($hide_shortcuts) {
-    $items['shortcuts']['#access'] = FALSE;
+  if ($hide_shortcuts && isset($items['shortcuts'])) {
+    unset($items['shortcuts']);
   }
 
   // Hide manage for users who are faculty, student, or staff who are not also editor or contributor.
   if ($hide_manage && (in_array('faculty', $roles) || in_array('student', $roles) || in_array('staff', $roles))) {
     if (!in_array('editor', $roles) && !in_array('contributor', $roles)) {
-      $items['administration']['#access'] = FALSE;
+      if (isset($items['administration'])) {
+        unset($items['administration']);
+      }
     }
   }
 }
